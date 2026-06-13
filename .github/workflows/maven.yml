@@ -78,7 +78,7 @@ jobs:
         push: true
         tags: dutt1/gtac:latest
         file: ./Dockerfile
-  job4-deploy:
+  job4-deploy-to-aks:
     runs-on: ubuntu-latest
     needs: Job3-docker
 
