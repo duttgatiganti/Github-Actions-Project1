@@ -76,6 +76,6 @@ jobs:
       with:
         push: true
         tags: dutt1/gtac:latest
-        file: ./Dockerfile
+        file: src/Dockerfile
 
  
