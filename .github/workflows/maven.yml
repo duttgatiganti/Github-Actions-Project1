@@ -80,7 +80,7 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v4
     - name: Build and push
-      if: github.ref == 'refs/heads/main'
+    # if: github.ref == 'refs/heads/main'  to skip step
       uses: docker/build-push-action@v7
       with:
         context: .
