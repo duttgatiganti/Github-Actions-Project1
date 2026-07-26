@@ -87,6 +87,7 @@ jobs:
         push: true
         tags: ${{ env.IMAGE_NAME }}
         file: ./Dockerfile
+        load: true
     - name: docker images build
       run: docker images
 
