@@ -9,7 +9,7 @@ on:
 
 
 jobs:
-  Job1-compile3:
+  Job1-compile:
 
     runs-on: ubuntu-latest
 
