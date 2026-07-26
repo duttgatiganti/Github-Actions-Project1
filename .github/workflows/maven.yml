@@ -127,5 +127,44 @@ jobs:
     - name: Apply Manifests
       run: |
         kubectl apply -f ds.yml
+  notify:
+    needs: job4-deploy-to-aks
+    if: always()
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.MAIL_SERVER }}
+          server_port: ${{ secrets.MAIL_PORT }}
+          secure: true
+
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+
+          subject: Build ${{ needs.build.result }}
+
+          body: |
+            Workflow: ${{ github.workflow }}
+
+            Repository: ${{ github.repository }}
+
+            Branch: ${{ github.ref_name }}
+
+            Status: ${{ needs.job4-deploy-to-aks.result }}
+
+            Triggered By: ${{ github.actor }}
+
+            Run Number: ${{ github.run_number }}
+
+            Run URL:
+            https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+          to: dutt.gatiganti@gmail.com
+          from: GitHub Actions        
+
+
 
  
