@@ -11,7 +11,7 @@ on:
 jobs:
   Job1-compile:
 
-    runs-on: ubuntu-latest
+    runs-on: r1
 
     steps:
     - uses: actions/checkout@v4   # cloning git
@@ -30,7 +30,7 @@ jobs:
         path: target/*.jar
         
   Job2-trivy:
-    runs-on: ubuntu-latest
+    runs-on: r1
     needs: Job1-compile
 
     steps:
@@ -50,7 +50,7 @@ jobs:
     - name: gitleaks scan
       run: gitleaks detect source . -r gl.json -f json .
   Job3-docker:
-    runs-on: ubuntu-latest
+    runs-on: r1
     needs: Job2-trivy
 
     steps:
@@ -79,7 +79,7 @@ jobs:
         tags: dutt1/gtac:latest
         file: ./Dockerfile
   job4-deploy-to-aks:
-    runs-on: ubuntu-latest
+    runs-on: r1
     needs: Job3-docker
 
     steps:
