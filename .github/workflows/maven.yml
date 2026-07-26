@@ -9,7 +9,7 @@ on:
 
 
 jobs:
-  Job1-compile:
+  Job1-compile2:
 
     runs-on: r1
 
