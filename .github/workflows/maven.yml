@@ -90,6 +90,7 @@ jobs:
         file: ./Dockerfile
         load: true
   update-manifest:
+    needs: Job3-docker
     runs-on: ubuntu-latest
 
     steps:
