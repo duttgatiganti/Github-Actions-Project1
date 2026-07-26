@@ -87,7 +87,7 @@ jobs:
 
 
     - name: docker build with reusing
-      uses: ./.github/workflows/docker-build.yml
+      uses: ./.github/workflows/reuse.yaml
       with:
         dockerfile: ./Dockerfile
         context: .
