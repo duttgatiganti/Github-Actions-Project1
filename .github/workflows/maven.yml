@@ -30,7 +30,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: app-jar
-        path: $targetpath
+        path: ${{ env.targetpath }}
        
     - name: Print Message
       run: echo "Uploaded artifact to target patg $targetpath"
