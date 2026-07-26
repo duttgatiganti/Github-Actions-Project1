@@ -91,6 +91,7 @@ jobs:
         load: true
   update-manifest:
     needs: Job3-docker
+    if: success()
     runs-on: ubuntu-latest
 
     steps:
