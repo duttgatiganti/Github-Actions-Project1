@@ -1,0 +1,27 @@
+on:
+  workflow_call:
+    inputs:
+      image-name:
+        required: true
+        type: string
+
+      dockerfile:
+        required: true
+        type: string
+
+      context:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: |
+          docker build \
+            -f ${{ inputs.dockerfile }} \
+            -t ${{ inputs.image-name }}:${{ github.run_number }} \
+            ${{ inputs.context }}
