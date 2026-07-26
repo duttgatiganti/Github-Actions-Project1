@@ -111,7 +111,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add ds.yaml
+          git add ds.yml
 
           git commit -m "Updated image to ${{ github.run_number }}" || echo "No changes"
 
