@@ -31,6 +31,9 @@ jobs:
       with:
         name: app-jar
         path: $targetpath
+       
+    - name: Print Message
+      run: echo "Uploaded artifact to target patg $targetpath"
         
   Job2-trivy:
     runs-on: ubuntu-latest
