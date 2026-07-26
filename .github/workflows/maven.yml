@@ -9,7 +9,7 @@ on:
     # paths: Dockerfile
 
 env:
-  IMAGE_NAME: dutt1/inventory-api
+  IMAGE_NAME: dutt1/inventory-api:${{ github.run_number }}
   targetpath: target/*.jar
 jobs:
   Job1-compile:
@@ -33,7 +33,7 @@ jobs:
         path: ${{ env.targetpath }}
        
     - name: Print Message
-      run: echo "Uploaded artifact to target patg $targetpath"
+      run: echo "Uploaded artifact to target path $targetpath"
         
   Job2-trivy:
     runs-on: ubuntu-latest
@@ -85,8 +85,10 @@ jobs:
       with:
         context: .
         push: true
-        tags: $IMAGE_NAME
+        tags: ${{ env.IMAGE_NAME }}
         file: ./Dockerfile
+    - name: docker images build
+      run: docker images
 
 
 
