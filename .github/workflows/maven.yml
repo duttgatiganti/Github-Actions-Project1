@@ -79,23 +79,23 @@ jobs:
       uses: docker/setup-qemu-action@v4
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v4
-    #- name: Build and push
-    #  if: github.ref == 'refs/heads/main'
-    #  uses: docker/build-push-action@v7
-    #  with:
-    #    context: .
-    #    push: true
-    #    tags: dutt1/gtac:latest
-    #    file: ./Dockerfile
-
-
-
-    - name: docker build with reusing
-      uses: ./.github/workflows/reuse.yaml
+    - name: Build and push
+      if: github.ref == 'refs/heads/main'
+      uses: docker/build-push-action@v7
       with:
-        dockerfile: ./Dockerfile
         context: .
-        image-name: ${{ env.IMAGE_NAME }}
+        push: true
+        tags: $IMAGE_NAME
+        file: ./Dockerfile
+
+
+
+    #- name: docker build with reusing
+    #  uses: ./.github/workflows/reuse.yaml
+    #  with:
+    #    dockerfile: ./Dockerfile
+    #    context: .
+    #    image-name: ${{ env.IMAGE_NAME }}
   approval:
     needs: Job3-docker
 
