@@ -10,6 +10,7 @@ on:
 
 env:
   IMAGE_NAME: dutt1/inventory-api
+  targetpath: target/*.jar
 jobs:
   Job1-compile:
 
@@ -29,7 +30,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: app-jar
-        path: target/*.jar
+        path: $targetpath
         
   Job2-trivy:
     runs-on: ubuntu-latest
