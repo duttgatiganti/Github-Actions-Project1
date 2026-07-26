@@ -33,27 +33,28 @@ jobs:
   Job2-trivy:
     runs-on: ubuntu-latest
     needs: Job1-compile
-    if: github.ref == 'refs/heads/main'
+    # if: github.ref == 'refs/heads/main'
 
     steps:
     - uses: actions/checkout@v4   # cloning git
 
-    #- name: install trivy
-    #  run: |
-    #    sudo apt-get install wget gnupg
-    #    wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
-    #    echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb generic main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
-    #    sudo apt-get update
-    #    sudo apt-get install trivy -y
-    #- name: trivy scan
-    #  run: trivy fs --format table -o trivy.json .
+    - name: install trivy
+      run: |
+        sudo apt-get install wget gnupg
+        wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
+        echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb generic main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+        sudo apt-get update
+        sudo apt-get install trivy -y
+    - name: trivy scan
+      run: trivy fs --format table -o trivy.json .
     - name: gitleaks install
       run: sudo apt install gitleaks -y
     - name: gitleaks scan
       run: gitleaks detect source . -r gl.json -f json .
   Job3-docker:
     runs-on: ubuntu-latest
-    needs: Job1-compile
+    needs: Job2-trivy
+    if: failure()
 
     steps:
     - uses: actions/checkout@v4   # cloning git
