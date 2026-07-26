@@ -102,7 +102,7 @@ jobs:
 
       - name: Update Image Tag
         run: |
-          sed -i "s|image: .*|image: ${{ env.IMAGE_NAME }}:${{ github.run_number }}|g" ds.yml
+          sed -i "s|image: .*|image: ${{ env.IMAGE_NAME }}|g" ds.yml
           
           cat ds.yml
 
