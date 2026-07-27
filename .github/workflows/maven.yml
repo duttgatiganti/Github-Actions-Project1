@@ -4,7 +4,7 @@
 name: CICD Test2
 
 on:
-  workflow_dispatch:
+  # workflow_dispatch:
     
   push:
     branches: [ "b2" ]
