@@ -18,6 +18,15 @@ env:
 jobs:
   Reusing-maven:
     uses: ./.github/workflows/maven-build.yaml
+    
+  sonar:
+    runs-on: ubuntu-latest
+    needs: Reusing-maven
+    steps:
+      - uses: SonarSource/sonarqube-scan-action@v5.0.0
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
   Job1-compile:
 
     runs-on: ubuntu-latest
