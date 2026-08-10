@@ -8,6 +8,7 @@ on:
     
   push:
     branches: [ "b2" ]
+    
     #  paths: Dockerfile
 permissions:
   contents: write
