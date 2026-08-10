@@ -1,27 +1,44 @@
+name: Reusable Docker Build
+
 on:
   workflow_call:
     inputs:
       image-name:
-        required: true
-        type: string
-
-      dockerfile:
+        description: Docker image name
         required: true
         type: string
 
       context:
-        required: true
+        description: Docker build context
+        required: false
         type: string
+        default: .
+
+      dockerfile:
+        description: Dockerfile path
+        required: false
+        type: string
+        default: ./Dockerfile
+
+      push:
+        description: Push image to registry
+        required: false
+        type: boolean
+        default: true
 
 jobs:
-  build:
+  docker-build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
 
-      - run: |
-          docker build \
-            -f ${{ inputs.dockerfile }} \
-            -t ${{ inputs.image-name }}:${{ github.run_number }} \
-            ${{ inputs.context }}
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build and Push
+        uses: docker/build-push-action@v7
+        with:
+          context: ${{ inputs.context }}
+          push: ${{ inputs.push }}
+          tags: ${{ inputs.image-name }}
+          file: ${{ inputs.dockerfile }}
