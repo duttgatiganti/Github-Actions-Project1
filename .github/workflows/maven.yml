@@ -95,6 +95,7 @@ jobs:
     #    file: ./Dockerfile
     #    load: true
   docker:
+    needs: Job3-docker
     uses: ./.github/workflows/reuse.yaml
 
     with:
