@@ -6,9 +6,9 @@ name: CICD Test2
 on:
   workflow_dispatch:
     
-  #push:
-  #  branches: [ "b2" ]
-    # paths: Dockerfile
+  push:
+    branches: [ "b2" ]
+    #  paths: Dockerfile
 permissions:
   contents: write
 env:
