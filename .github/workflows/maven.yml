@@ -16,9 +16,12 @@ env:
   IMAGE_NAME: dutt1/inventory-api:${{ github.run_number }}
   targetpath: target/*.jar
 jobs:
+  Reusing-maven:
+    uses: ./.github/workflows/maven-build.yaml
   Job1-compile:
 
     runs-on: ubuntu-latest
+    if: ${{ false }}
 
     steps:
     - uses: actions/checkout@v4   # cloning git
