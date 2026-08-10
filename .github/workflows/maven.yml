@@ -94,7 +94,7 @@ jobs:
     #    file: ./Dockerfile
     #    load: true
   docker:
-    uses: ./.github/workflows/reuse.yml
+    uses: ./.github/workflows/reuse.yaml
 
     with:
       image-name: ${{ vars.IMAGE_NAME }}
