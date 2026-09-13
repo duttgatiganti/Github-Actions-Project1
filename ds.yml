@@ -1,54 +1,54 @@
 ---
 # MySQL Deployment
 
-apiVersion: apps/v1
-#kind: Deployment
-kind: Rollout
-metadata:
-  name: mysql
-spec:
-  selector:
-    matchLabels:
-      app: mysql
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: mysql
-    spec:
-      containers:
-      - image: dutt1/inventory-api:76
-        name: mysql
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: "Test@123"
-        - name: MYSQL_DATABASE
-          value: "bankappdb"
-        ports:
-        - containerPort: 3306
-          name: mysql
-  strategy:
-    canary:
-      steps:
-      - setWeight: 50
-      - pause: {}
-          #duration: 30
-      - setWeight: 50
-      - pause: {}
-          #duration: 30
-     # - setWeight: 100
----
-# MySQL Service
-apiVersion: v1
-kind: Service
-metadata:
-  name: mysql-service
-spec:
-  ports:
-  - port: 3306
-  selector:
-    app: mysql
+# apiVersion: apps/v1
+# #kind: Deployment
+# kind: Rollout
+# metadata:
+#   name: mysql
+# spec:
+#   selector:
+#     matchLabels:
+#       app: mysql
+#   strategy:
+#     type: Recreate
+#   template:
+#     metadata:
+#       labels:
+#         app: mysql
+#     spec:
+#       containers:
+#       - image: dutt1/inventory-api:76
+#         name: mysql
+#         env:
+#         - name: MYSQL_ROOT_PASSWORD
+#           value: "Test@123"
+#         - name: MYSQL_DATABASE
+#           value: "bankappdb"
+#         ports:
+#         - containerPort: 3306
+#           name: mysql
+#   strategy:
+#     canary:
+#       steps:
+#       - setWeight: 50
+#       - pause: {}
+#           #duration: 30
+#       - setWeight: 50
+#       - pause: {}
+#           #duration: 30
+#      # - setWeight: 100
+# ---
+# # MySQL Service
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: mysql-service
+# spec:
+#   ports:
+#   - port: 3306
+#   selector:
+#     app: mysql
 ---
 # Java Application Deployment
 apiVersion: apps/v1
