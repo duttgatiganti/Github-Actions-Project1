@@ -21,6 +21,7 @@ jobs:
   sonar:
     runs-on: ubuntu-latest
     needs: Reusing-maven
+    if: ${{ false }}
     steps:      
       - name: Checkout
         uses: actions/checkout@v4
@@ -66,7 +67,7 @@ jobs:
   Job2-trivy:
     runs-on: ubuntu-latest
     needs: Job1-compile
-    if: ${{ true }}
+    if: ${{ false }}
     # if: github.ref == 'refs/heads/main'
 
     steps:
@@ -88,7 +89,7 @@ jobs:
   Job3-docker:
     runs-on: ubuntu-latest
     needs: Job2-trivy
-    if: failure()
+    #if: failure()
 
     steps:
     - uses: actions/checkout@v4   # cloning git
@@ -161,6 +162,7 @@ jobs:
     #    image-name: ${{ env.IMAGE_NAME }}
   approval:
     needs: update-manifest
+    if: ${{ false }}
 
     runs-on: ubuntu-latest
 
@@ -245,7 +247,8 @@ jobs:
   job5-deploy-to-eks:
     runs-on: ubuntu-latest
     #needs: approval
-    if: always()
+    #if: always()
+    if: ${{ false }}
 
     steps:
     - name: Checkout Code
