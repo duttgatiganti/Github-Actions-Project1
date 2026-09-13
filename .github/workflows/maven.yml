@@ -253,7 +253,7 @@ jobs:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v5
       with:
-        role-to-assume: arn:aws:iam::189455135272:role/github-actions-eks-role
+        role-to-assume: arn:aws:iam::189455135272:role/githubaction-eks-iam-role2
         aws-region: ap-south-1
     
     - name: Configure kubeconfig
