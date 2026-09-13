@@ -68,7 +68,7 @@ spec:
     spec:
       containers:
       - name: bankapp
-        image: dutt1/inventory-api:76
+        image: dutt1/inventory-api:61
         ports:
         - containerPort: 8080
         env:
