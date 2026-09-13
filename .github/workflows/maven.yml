@@ -244,8 +244,8 @@ jobs:
           from: GitHub Actions       
   job5-deploy-to-eks:
     runs-on: ubuntu-latest
-    needs: approval
-    if: ${{ true }}
+    #needs: approval
+    if: always()
 
     steps:
     - name: Checkout Code
