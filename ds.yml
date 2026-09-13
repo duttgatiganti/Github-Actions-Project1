@@ -87,7 +87,7 @@ spec:
         - setWeight: 50
         - pause: {}
           #duration: 30
-     # - setWeight: 100
+        - setWeight: 100
 ---
 # Bank Application Service
 apiVersion: v1
