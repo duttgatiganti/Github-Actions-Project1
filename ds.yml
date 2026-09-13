@@ -78,16 +78,16 @@ spec:
           value: root
         - name: SPRING_DATASOURCE_PASSWORD
           value: Test@123
-   strategy:
-      canary:
-        steps:
-        - setWeight: 50
-        - pause: {}
-          #duration: 30
-        - setWeight: 50
-        - pause: {}
-          #duration: 30
-        - setWeight: 100
+  strategy:
+     canary:
+       steps:
+       - setWeight: 50
+       - pause: {}
+         #duration: 30
+       - setWeight: 50
+       - pause: {}
+         #duration: 30
+       - setWeight: 100
 ---
 # Bank Application Service
 apiVersion: v1
