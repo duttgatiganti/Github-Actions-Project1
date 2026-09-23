@@ -50,12 +50,65 @@
 #   selector:
 #     app: mysql
 ---
+# # Java Application Deployment
+# apiVersion: argoproj.io/v1alpha1
+# #kind: Deployment
+# kind: Rollout
+# metadata:
+#   name: bankapp
+# spec:
+#   replicas: 2
+#   selector:
+#     matchLabels:
+#       app: bankapp
+#   template:
+#     metadata:
+#       labels:
+#         app: bankapp
+#     spec:
+#       containers:
+#       - name: bankapp
+#         image: dutt1/inventory-api:87
+#         ports:
+#         - containerPort: 8080
+#         env:
+#         - name: SPRING_DATASOURCE_URL
+#           value: jdbc:mysql://mysql-service:3306/bankappdb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+#         - name: SPRING_DATASOURCE_USERNAME
+#           value: root
+#         - name: SPRING_DATASOURCE_PASSWORD
+#           value: Test@123
+#   strategy:
+#      canary:
+#        steps:
+#        - setWeight: 50
+#        - pause: {}
+#          #duration: 30
+#        - setWeight: 50
+#        - pause: {}
+#          #duration: 30
+#        - setWeight: 100
+# ---
+# # Bank Application Service
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: bankapp-service
+# spec:
+#   type: ClusterIP
+#   ports:
+#   - port: 80
+#     targetPort: 8080
+#   selector:
+#     app: bankapp
+# ---
 # Java Application Deployment
+---
 apiVersion: argoproj.io/v1alpha1
 #kind: Deployment
 kind: Rollout
 metadata:
-  name: bankapp
+  name: bankapp-bg
 spec:
   replicas: 2
   selector:
@@ -79,21 +132,29 @@ spec:
         - name: SPRING_DATASOURCE_PASSWORD
           value: Test@123
   strategy:
-     canary:
-       steps:
-       - setWeight: 50
-       - pause: {}
-         #duration: 30
-       - setWeight: 50
-       - pause: {}
-         #duration: 30
-       - setWeight: 100
+    blueGreen:
+      activeService: bankapp-service-active
+      previewService: bankapp-service-passive
+      autoPromotionEnabled: false
+      scaleDownDelaySeconds: 30
 ---
 # Bank Application Service
 apiVersion: v1
 kind: Service
 metadata:
-  name: bankapp-service
+  name: bankapp-service-active
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: bankapp
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bankapp-service-passive
 spec:
   type: ClusterIP
   ports:
