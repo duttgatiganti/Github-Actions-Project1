@@ -88,7 +88,7 @@ jobs:
       run: gitleaks detect source . -r gl.json -f json .
   Job3-docker:
     runs-on: ubuntu-latest
-    needs: Job2-trivy
+    needs: Reusing-maven
     #if: failure()
 
     steps:
