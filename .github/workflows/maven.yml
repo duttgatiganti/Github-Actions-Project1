@@ -42,7 +42,7 @@ jobs:
   Job1-compile:
 
     runs-on: r1 #ubuntu-latest
-    if: ${{ false }}
+    if: ${{ true }}
 
     steps:
     - uses: actions/checkout@v4   # cloning git
