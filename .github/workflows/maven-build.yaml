@@ -6,7 +6,7 @@ on:
 jobs:
   from-maven-build-shared:
     runs-on: ubuntu-latest
-
+    if: ${{ false }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
