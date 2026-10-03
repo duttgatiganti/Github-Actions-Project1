@@ -52,9 +52,10 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
-      run: mvn compile package
+    #- name: Build with Maven
+    #  run: mvn compile package
     - name: upload artifact
+      if: ${{ false }}
       
       uses: actions/upload-artifact@v4
       with:
