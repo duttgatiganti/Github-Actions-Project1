@@ -175,6 +175,17 @@ jobs:
       uses: anchore/scan-action@v7
       with:
         image: ${{ env.IMAGE_NAME }} #"localbuild/testimage:latest"
+        fail-build: false
+        # severity-cutoff: medium
+        output-format: json
+        output-file: anchore.json
+    - name: Upload Grype report
+      if: ${{ true }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: anchore-security-report
+        path: anchore.json
+        if-no-files-found: warn
     
     # - name: OWASP Depcheck step
     #   uses: dependency-check/Dependency-Check_Action@main
