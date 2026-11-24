@@ -5,7 +5,7 @@ on:
 
 jobs:
   from-maven-build-shared:
-    runs-on: self #ubuntu-latest
+    runs-on: ubuntu-latest # self #ubuntu-latest
     if: ${{ true }}
     steps:
       - name: Checkout
