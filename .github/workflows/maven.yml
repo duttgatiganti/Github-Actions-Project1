@@ -42,7 +42,7 @@ jobs:
   Job1-compile:
 
     runs-on: self #ubuntu-latest
-    if: ${{ false }}
+    if: ${{ true }}
 
     steps:
     - uses: actions/checkout@v4   # cloning git
