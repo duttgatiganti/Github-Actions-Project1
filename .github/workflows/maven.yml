@@ -177,14 +177,14 @@ jobs:
         image: ${{ env.IMAGE_NAME }} #"localbuild/testimage:latest"
         fail-build: false
         # severity-cutoff: medium
-        output-format: json
-        output-file: anchore.json
-    - name: Upload Grype report
+        output-format: table
+        output-file: anchore
+    - name: Upload anchore report
       if: ${{ true }}
       uses: actions/upload-artifact@v4
       with:
         name: anchore-security-report
-        path: anchore.json
+        path: anchore
         if-no-files-found: warn
     
     # - name: OWASP Depcheck step
