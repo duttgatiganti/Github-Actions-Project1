@@ -102,20 +102,20 @@ jobs:
       run: gitleaks detect source . -r gl.json -f json .
   Job3-docker:
     runs-on: self #ubuntu-latest
-    #needs: Reusing-maven
+    needs: Reusing-maven
     #if: failure()
-    if: ${{ false }}
+    if: ${{ true }}
 
     steps:
     - uses: actions/checkout@v4   # cloning git
 
    
-    - name: download artifact
+    - name: download artifact step
       uses: actions/download-artifact@v4
       with:
         name: app-jar
         path: app
-    - name: Login to Docker Hub
+    - name: Login to Docker Hub step
       uses: docker/login-action@v4
       with:
         username: ${{ vars.DOCKERHUB_USERNAME }}
@@ -124,7 +124,7 @@ jobs:
       uses: docker/setup-qemu-action@v4
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v4
-    - name: Build and push
+    - name: docker Build and push step
     # if: github.ref == 'refs/heads/main'  to skip step
       uses: docker/build-push-action@v7
       with:
@@ -133,6 +133,15 @@ jobs:
         tags: ${{ env.IMAGE_NAME }}
         file: ./Dockerfile
     #    load: true
+    - name: trivy image scan step
+      run: trivy image  ${{ env.IMAGE_NAME }} --format table -o trivyimage.json .
+    - name: Upload Trivy image scanning report step
+      # if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: trivy-imagescanning-report
+        path: trivyimage.json
+      
   #docker:
     #needs: Job3-docker
     #uses: ./.github/workflows/reuse.yaml
