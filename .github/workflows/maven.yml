@@ -42,6 +42,7 @@ jobs:
   Job1-compile:
 
     runs-on: ubuntu-latest # self #ubuntu-latest
+    needs: Reusing-maven
     if: ${{ true }}
 
     steps:
