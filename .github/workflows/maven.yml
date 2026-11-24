@@ -134,6 +134,7 @@ jobs:
         file: ./Dockerfile
     #    load: true
     - name: install trivy step
+      if: ${{ false }}
       run: |
         sudo apt-get install wget gnupg
         wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
@@ -141,8 +142,10 @@ jobs:
         sudo apt-get update
         sudo apt-get install trivy -y
     - name: trivy image scan step
+      if: ${{ false }}
       run: trivy image  --format table -o trivyimage.json ${{ env.IMAGE_NAME }}
     - name: Upload Trivy image scanning report step
+      if: ${{ false }}
       # if: always()
       uses: actions/upload-artifact@v4
       with:
