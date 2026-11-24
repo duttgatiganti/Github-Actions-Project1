@@ -152,6 +152,7 @@ jobs:
         name: trivy-imagescanning-report
         path: trivyimage.json
     - name: OWASP Dependency Check step
+      if: ${{ false }}
         # env:
         #   NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
       run: |
@@ -161,7 +162,7 @@ jobs:
             -DfailBuildOnCVSS=7
 
     - name: Upload OWASP report step
-      #if: always()
+      if: ${{ false }}
       uses: actions/upload-artifact@v4
       with:
           name: owasp-dependency-check-report
@@ -170,6 +171,10 @@ jobs:
             **/target/dependency-check-report.json
           if-no-files-found: warn
           retention-days: 30
+    - name: Scan image
+      uses: anchore/scan-action@v7
+      with:
+        image: ${{ env.IMAGE_NAME }} #"localbuild/testimage:latest"
     
     # - name: OWASP Depcheck step
     #   uses: dependency-check/Dependency-Check_Action@main
